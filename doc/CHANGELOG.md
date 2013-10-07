@@ -29,6 +29,8 @@ See doc/COPYRIGHT.rdoc for more details.
 
 # Changelog
 
+* Add hook so that plugins can register assets, which are loaded on every page
+
 ## 3.0.0pre28
 
 * `#1910` New menu structure for pages of timelines module
