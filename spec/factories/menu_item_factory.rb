@@ -33,4 +33,11 @@ FactoryGirl.define do
     sequence(:name) {|n| "Item No. #{n}" }
     sequence(:title) {|n| "Wiki Title #{n}" }
   end
+
+  factory :query_menu_item, :class => MenuItems::QueryMenuItem do
+    query
+
+    sequence(:name) {|n| "Item No. #{n}" }
+    sequence(:title) {|n| "Query Title #{n}" }
+  end
 end
