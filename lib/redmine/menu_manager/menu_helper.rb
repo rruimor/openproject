@@ -45,7 +45,7 @@ module Redmine::MenuManager::MenuHelper
   def build_wiki_menus(project)
     project_wiki = project.wiki
 
-    WikiMenuItem.main_items(project_wiki).each do |main_item|
+    MenuItems::WikiMenuItem.main_items(project_wiki).each do |main_item|
       Redmine::MenuManager.loose :project_menu do |menu|
         menu.push "#{main_item.item_class}".to_sym,
           { :controller => '/wiki', :action => 'show', :id => h(main_item.title) },

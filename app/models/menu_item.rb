@@ -26,28 +26,47 @@
 # See doc/COPYRIGHT.rdoc for more details.
 #++
 
-class CreateWikiMenuItemForExistingWikis < ActiveRecord::Migration
-  def self.up
-    Wiki.all.each do |wiki|
+class MenuItem < ActiveRecord::Base
+  belongs_to :parent, :class_name => 'MenuItem'
+  has_many :children, :class_name => 'MenuItem', :dependent => :destroy, :foreign_key => :parent_id, :order => 'id ASC'
 
-      page = wiki.find_page(wiki.start_page, :with_redirects => true)
+  serialize :options, Hash
 
-      current_title = page.present? ?
-                        page.title :
-                        wiki.start_page
+  attr_accessible :name, :title
 
-      menu_item = MenuItems::WikiMenuItem.new
-      menu_item.name = wiki.start_page
-      menu_item.title = current_title
-      menu_item.wiki_id = wiki.id
-      menu_item.index_page = true
-      menu_item.new_wiki_page = true
+  validates_presence_of :title
+  validates_format_of :title, :with => /\A[^,\.\/\?\;\|\:]*\z/
+  validates_uniqueness_of :title, :scope => :navigatable_id
 
-      menu_item.save!
+  validates_presence_of :name
+
+  def item_class
+    title.dasherize
+  end
+
+  def setting
+    if new_record?
+      :no_item
+    elsif is_main_item?
+      :main_item
+    else
+      :sub_item
     end
   end
 
-  def self.down
-    puts "You cannot safely undo this migration!"
+  def index_page
+    !!options[:index_page]
+  end
+
+  def index_page=(value)
+    options[:index_page] = value
+  end
+
+  def is_main_item?
+    parent_id.nil?
+  end
+
+  def is_sub_item?
+    !parent_id.nil?
   end
 end
