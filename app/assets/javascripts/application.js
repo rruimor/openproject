@@ -63,6 +63,7 @@
 //= require keyboard_shortcuts
 //= require top-shelf
 //= require unsupported-browsers
+//= require openproject_plugins
 
 //source: http://stackoverflow.com/questions/8120065/jquery-and-prototype-dont-work-together-with-array-prototype-reverse
 if (typeof []._reverse == 'undefined') {
