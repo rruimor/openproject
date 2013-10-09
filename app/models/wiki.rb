@@ -34,6 +34,7 @@ class Wiki < ActiveRecord::Base
   has_many :wiki_menu_items, :class_name => 'WikiMenuItem', :dependent => :delete_all, :order => 'name'
   has_many :redirects, :class_name => 'WikiRedirect', :dependent => :delete_all
 
+  after_create :create_default_wiki_menu_item
 
   acts_as_watchable
 
@@ -106,5 +107,16 @@ class Wiki < ActiveRecord::Base
     # upcase the first letter
     title = (title.slice(0..0).upcase + (title.slice(1..-1) || '')) if title
     title
+  end
+
+  private
+
+  def create_default_wiki_menu_item
+    wiki_menu_item = WikiMenuItem.find_or_initialize_by_wiki_id_and_title(self.id, self.start_page)
+    wiki_menu_item.name = ('Wiki' || self.title)
+    wiki_menu_item.new_wiki_page = true
+    wiki_menu_item.index_page = true
+
+    wiki_menu_item.save!
   end
 end
