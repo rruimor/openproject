@@ -36,6 +36,7 @@ See doc/COPYRIGHT.rdoc for more details.
 * `#2685` [Work package tracking] 404 when deleting work package priority which is assigned to work package
 * `#2686` Fix: [Work package tracking] Work package summary not displayed correctly
 * `#2687` Fix: [Work Package Tracking] No error for parallel editing
+* `#2706` [Migration] Timeline options does not contain 'none' type
 * `#2708` Fix: API key auth does not work for custom_field actions
 * `#2712` Fix: Journal entry on responsible changes displayed as numbers
 * `#2715` [Journals] Missing attachable journals
