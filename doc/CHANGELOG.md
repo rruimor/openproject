@@ -30,6 +30,7 @@ See doc/COPYRIGHT.rdoc for more details.
 # Changelog
 
 * `#2473` [Timelines] Tooltip in timeline report shows star * instead of hash # in front of ID 
+* `#2668` First Grouping Criteria broken when also selecting Hide other group 
 * `#2721` Fix: Fix: Fix: Missing journal entries for customizable_journals
 * `#2718` Newlines in workpackage descriptions aren't normalized for change tracking
 
